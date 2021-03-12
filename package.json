@@ -5,7 +5,8 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "rm -rf ./lib && tsc",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+	"prepack": "npm run build && npm test"
   },
   "author": "Andrew Goodman",
   "license": "MIT",
@@ -26,5 +27,8 @@
     "tslint": "^6.1.3",
     "typescript": "^4.1.3",
     "uuid": "^8.3.2"
-  }
+  },
+  "files": [
+    "lib/**/*"
+  ]
 }
