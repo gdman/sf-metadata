@@ -1,12 +1,12 @@
 {
   "name": "sf-metadata",
-  "version": "0.0.1-alpha.0",
+  "version": "0.0.1-alpha.1",
   "description": "Library for reading, writing and processing (read, update and write) Salesforce metadata files",
   "main": "lib/index.js",
   "scripts": {
     "build": "rm -rf ./lib && tsc",
     "test": "jest --coverage",
-	"prepack": "npm run build && npm test"
+    "prepack": "npm run build && npm test"
   },
   "author": "Andrew Goodman",
   "license": "MIT",
