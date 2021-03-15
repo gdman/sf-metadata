@@ -14,9 +14,9 @@ describe('Collection', () => {
 		const files = await collection.getFileNames();
 
 		expect(files.length).toEqual(3);
-		expect(files).toContain('folder1/foldera/json-file.json');
-		expect(files).toContain('folder1/json-file.json');
-		expect(files).toContain('folder2/json-file.json');
+		expect(files).toContain(path.join('folder1', 'foldera', 'json-file.json'));
+		expect(files).toContain(path.join('folder1', 'json-file.json'));
+		expect(files).toContain(path.join('folder2', 'json-file.json'));
 	});
 
 	it('construct with base directory and array of patterns can return files', async () => {
@@ -26,9 +26,9 @@ describe('Collection', () => {
 		const files = await collection.getFileNames();
 
 		expect(files.length).toEqual(3);
-		expect(files).toContain('folder1/foldera/json-file.json');
-		expect(files).toContain('folder1/json-file.json');
-		expect(files).toContain('folder2/xml-file.xml');
+		expect(files).toContain(path.join('folder1', 'foldera', 'json-file.json'));
+		expect(files).toContain(path.join('folder1', 'json-file.json'));
+		expect(files).toContain(path.join('folder2', 'xml-file.xml'));
 	});
 
 	it('construct with base directory and pattern options can return files (prove options used by adding pattern thats not covered by root dir)', async () => {
@@ -41,7 +41,7 @@ describe('Collection', () => {
 		const files = await collection.getFileNames();
 
 		expect(files.length).toEqual(2);
-		expect(files).toContain('foldera/json-file.json');
+		expect(files).toContain(path.join('foldera', 'json-file.json'));
 		expect(files).toContain('xml-file.xml');
 	});
 
@@ -54,9 +54,9 @@ describe('Collection', () => {
 		const files = await collection.getFileNames();
 
 		expect(files.length).toEqual(6);
-		expect(files).toContain('foldera/json-file.json');
-		expect(files).toContain('foldera/xml-file.xml');
-		expect(files).toContain('foldera/text-file.txt');
+		expect(files).toContain(path.join('foldera', 'json-file.json'));
+		expect(files).toContain(path.join('foldera', 'xml-file.xml'));
+		expect(files).toContain(path.join('foldera', 'text-file.txt'));
 		expect(files).toContain('json-file.json');
 		expect(files).toContain('xml-file.xml');
 		expect(files).toContain('text-file.txt');
@@ -72,9 +72,9 @@ describe('Collection', () => {
 		const files = await collection.getFileNames();
 
 		expect(files.length).toEqual(3);
-		expect(files).toContain('folder1/foldera/json-file.json');
-		expect(files).toContain('folder1/json-file.json');
-		expect(files).toContain('folder2/xml-file.xml');
+		expect(files).toContain(path.join('folder1', 'foldera', 'json-file.json'));
+		expect(files).toContain(path.join('folder1', 'json-file.json'));
+		expect(files).toContain(path.join('folder2', 'xml-file.xml'));
 	});
 
 	it('construct with no parameters and setDir can return files', async () => {
@@ -99,9 +99,9 @@ describe('Collection', () => {
 		const files = await collection.getFileNames();
 
 		expect(files.length).toEqual(3);
-		expect(files).toContain('folder1/foldera/json-file.json');
-		expect(files).toContain('folder1/json-file.json');
-		expect(files).toContain('folder2/xml-file.xml');
+		expect(files).toContain(path.join('folder1', 'foldera', 'json-file.json'));
+		expect(files).toContain(path.join('folder1', 'json-file.json'));
+		expect(files).toContain(path.join('folder2', 'xml-file.xml'));
 	});
 
 	it('construct with no parameters and setDir + setPatterns can return files (prove options used by adding pattern thats not covered by root dir)', async () => {
@@ -113,7 +113,7 @@ describe('Collection', () => {
 		const files = await collection.getFileNames();
 
 		expect(files.length).toEqual(2);
-		expect(files).toContain('foldera/json-file.json');
+		expect(files).toContain(path.join('foldera', 'json-file.json'));
 		expect(files).toContain('xml-file.xml');
 	});
 
