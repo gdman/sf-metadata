@@ -45,6 +45,8 @@ export async function processor(baseDirOrOptions: string | ProcessorOptions, pat
 			throw new Error('Must specify processor function');
 		}
 
+		options.baseDir = path.resolve(options.baseDir);
+
 		const collection = new Collection(options.baseDir);
 
 		if (options.patterns) {
