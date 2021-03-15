@@ -7,6 +7,7 @@ Library for reading, writing and processing (read, update, write) Salesforce met
 [![Known Vulnerabilities](https://snyk.io/test/github/gdman/sf-metadata/badge.svg)](https://snyk.io/test/github/gdman/sf-metadata)
 [![Downloads/week](https://img.shields.io/npm/dw/sf-metadata.svg)](https://npmjs.org/package/sf-metadata)
 [![License](https://img.shields.io/npm/l/sf-metadata.svg)](https://github.com/gdman/sf-metadata/blob/master/package.json)
+[![Build and Test](https://github.com/gdman/sf-metadata/actions/workflows/build.yml/badge.svg?event=push)](https://github.com/gdman/sf-metadata/actions/workflows/build.yml)
 
 # Usage
 
