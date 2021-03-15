@@ -1,0 +1,56 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'New version'
+        default: 'patch'
+        required: true
+
+jobs:
+
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: Increment Version, Test and Pack
+      run: |
+        git config --global user.email "github@gdman.co.uk"
+        git config --global user.name "Version Bot"
+        npm version ${{ github.event.inputs.version }}
+        echo version=`jq -r .version package.json` >> $GITHUB_ENV
+        npm ci
+        npm test
+        npm pack
+    - name: Create Release
+      uses: actions/create-release@v1
+      id: create_release
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v${{ env.version }}
+        release_name: v${{ env.version }}
+    - name: Upload Release Asset
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./sf-metadata-${{ env.version }}.tgz
+        asset_name: sf-metadata-${{ env.version }}.tgz
+        asset_content_type: application/tgz
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 12
+        registry-url: https://registry.npmjs.org/
+    - name: Publish
+      run: npm publish ./sf-metadata-${{ env.version }}.tgz
+      env:
+        NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+    
