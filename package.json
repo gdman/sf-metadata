@@ -30,7 +30,8 @@
         "uuid": "^8.3.2"
     },
     "files": [
-        "lib/**/*"
+        "lib/**/*",
+		"types/**/*"
     ],
     "homepage": "https://github.com/gdman/sf-metadata",
     "repository": "github:gdman/sf-metadata",
