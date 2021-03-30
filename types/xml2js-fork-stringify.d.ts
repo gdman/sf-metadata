@@ -110,4 +110,4 @@ declare module "xml2js-fork-stringify" {
 	export interface convertableToString {
 		toString(): string;
 	}
-};
+}
