@@ -27,6 +27,16 @@ jobs:
         npm ci
         npm test
         npm pack
+    - name: Archive JS build
+      uses: actions/upload-artifact@v2
+      with:
+        name: build
+        path: lib
+    - name: Archive code coverage results
+      uses: actions/upload-artifact@v2
+      with:
+        name: code-coverage-report
+        path: coverage
     - name: Create Release
       uses: actions/create-release@v1
       id: create_release
