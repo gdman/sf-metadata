@@ -3,6 +3,7 @@ import { File } from "../../src/core";
 import { JsonParser, StringParser } from "../../src/parsers";
 import { DataType, Metadata } from "../../src/types";
 import { createTestFile, getTestFilePath, readTestFile } from "../test-utils/file-utils";
+import * as fs from 'fs';
 
 class NullBuilder implements BuilderInterface {
 	build(data: Metadata): Promise<string> {
@@ -250,5 +251,17 @@ describe('File', () => {
 		expect(
 			readTestFile(testFile)
 		).toBe('');
+	});
+
+	it('delete file that exists is successful', async () => {
+		const testFile = createTestFile('txt', 'value');
+
+		await new File(testFile).delete();
+
+		expect(fs.existsSync(testFile)).toBe(false);
+	});
+
+	it('delete file that doesnt exist rejects', () => {
+		return expect(new File('doesnt-exist').delete()).rejects.toBe('Delete failed: File not found');
 	});
 });
