@@ -7,7 +7,7 @@
     "scripts": {
         "build": "rm -rf ./lib && tsc",
         "test": "jest --coverage",
-        "prepack": "npm run build && npm test"
+        "prepack": "npm run build"
     },
     "author": "Andrew Goodman",
     "license": "MIT",
