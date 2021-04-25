@@ -112,6 +112,22 @@ export class File {
 		}
 	};
 
+	public delete = async (): Promise<void> => {
+		try {
+			const file = this.getFile();
+
+			if (!fs.existsSync(file)) {
+				throw new Error('File not found');
+			}
+
+			await fs.promises.unlink(file);
+
+			return Promise.resolve();
+		} catch (ex) {
+			return Promise.reject('Delete failed: ' + (ex.message || ex));
+		}
+	}
+
 	private getParser = (): ParserInterface => {
 		if (this.parser) {
 			return this.parser;
