@@ -493,7 +493,7 @@ describe('processor', () => {
 		const mockProcessor = jest.fn((data: any, filename: string) => { data.replace('value', 'not-returned') });
 
 		return expect(processor(folderPath, '**/*.txt',  mockProcessor, ProcessorDataFormat.String))
-			.rejects.toEqual('Metadata processor failed: Failed to process: folder1/foldera/text-file.txt. Error: When working with data as a string - the processor function must return data (or null)');
+			.rejects.toEqual('Metadata processor failed: Failed to process: ' + path.join('folder1', 'foldera', 'text-file.txt') + '. Error: When working with data as a string - the processor function must return data (or null)');
 	});
 
 	it('string processor function returns null which is ok and will legitimately empty a file', async () => {
@@ -523,7 +523,7 @@ describe('processor', () => {
 				// tslint:disable-next-line:no-string-throw
 				throw "THROW";
 			}, ProcessorDataFormat.String)
-		).rejects.toEqual('Metadata processor failed: Failed to process: folder1/foldera/text-file.txt. Error: THROW');
+		).rejects.toEqual('Metadata processor failed: Failed to process: ' + path.join('folder1', 'foldera', 'text-file.txt') + '. Error: THROW');
 	});
 
 	it('processing function throws an error (object) - error is caught and processor rejects', () => {
@@ -534,7 +534,7 @@ describe('processor', () => {
 			processor(folderPath, '**/*.txt',  (data: any, filename: string) => {
 				throw new Error("THROW");
 			}, ProcessorDataFormat.String)
-		).rejects.toEqual('Metadata processor failed: Failed to process: folder1/foldera/text-file.txt. Error: THROW');
+		).rejects.toEqual('Metadata processor failed: Failed to process: ' + path.join('folder1', 'foldera', 'text-file.txt') + '. Error: THROW');
 	});
 
 	it('processing async function rejects (string) - error is caught and processor rejects', () => {
@@ -543,7 +543,7 @@ describe('processor', () => {
 
 		return expect(
 			processor(folderPath, '**/*.txt', async (data: any, filename: string) => Promise.reject('REJECT'), ProcessorDataFormat.String)
-		).rejects.toEqual('Metadata processor failed: Failed to process: folder1/foldera/text-file.txt. Error: REJECT');
+		).rejects.toEqual('Metadata processor failed: Failed to process: ' + path.join('folder1', 'foldera', 'text-file.txt') + '. Error: REJECT');
 	});
 
 	it('processing async function rejects (object) - error is caught and processor rejects', () => {
@@ -552,6 +552,6 @@ describe('processor', () => {
 
 		return expect(
 			processor(folderPath, '**/*.txt', async (data: any, filename: string) => Promise.reject(new Error('REJECT')), ProcessorDataFormat.String)
-		).rejects.toEqual('Metadata processor failed: Failed to process: folder1/foldera/text-file.txt. Error: REJECT');
+		).rejects.toEqual('Metadata processor failed: Failed to process: ' + path.join('folder1', 'foldera', 'text-file.txt') + '. Error: REJECT');
 	});
 });
