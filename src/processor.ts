@@ -63,21 +63,25 @@ export async function processor(baseDirOrOptions: string | ProcessorOptions, pat
 				file.disableParser();
 			}
 
-			const data = await file.read();
-
 			const filename = file.getFile().replace(options.baseDir + path.sep, '');
 
-			const processorResponse = await options.processorFunction(data.data, filename);
+			try {
+				const data = await file.read();
 
-			if (data.type === DataType.String && processorResponse === undefined) {
-				throw new Error('When working with data as a string - the processor function must return data (or null)');
+				const processorResponse = await options.processorFunction(data.data, filename);
+
+				if (data.type === DataType.String && processorResponse === undefined) {
+					throw new Error('When working with data as a string - the processor function must return data (or null)');
+				}
+
+				if (processorResponse !== undefined) {
+					data.data = processorResponse;
+				}
+
+				await file.write();
+			} catch (fileEx) {
+				throw new Error('Failed to process: ' + filename + '. Error: ' + (fileEx.message || fileEx));
 			}
-
-			if (processorResponse !== undefined) {
-				data.data = processorResponse;
-			}
-
-			await file.write();
 
 			updatedFiles.push(filename);
 		}
